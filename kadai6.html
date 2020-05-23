@@ -120,14 +120,16 @@ a {
       //map: texture
     });
     
-
+    // 螺旋をボールが落ちるということは頂点の部分の座標を計算する必要がある
+    let top = 1800;
     let theta = 0;
-    for(let i = 0; i < 2000; i++){
+    for(let i = 0; i < 180; i++){
       mesh = new THREE.Mesh(geometry, material);
       let x = 500 * Math.cos(theta);
       mesh.position.x = x;
       
-      let y = 50;
+      // 螺旋を作る
+      let y = top - i * 10;
       mesh.position.y = y;
 
       let z = 500 * Math.sin(theta);
@@ -137,10 +139,10 @@ a {
       
       // 滑らかに
       mesh.rotation.y = - theta;
-      theta += Math.PI / 180 * 10;
 
       mesh.receiveShadow = true;
       mesh.castShadow = true;
+      theta += Math.PI / 180 * 10;
         scene.add(mesh);
     }
 
@@ -190,14 +192,23 @@ a {
 
   // アニメーションの実行（無限ループ）
   let theta = 0;
+  let top = 1800 + 100;
   function animate() {
       requestAnimationFrame(animate); //再帰呼出し
       controls.update();			
       
-    // 円状のコースを球体が回る
-      theta += 1;
-      mesh1.position.x = 500 * Math.sin(theta * Math.PI / 180);
-      mesh1.position.z = 500 * Math.cos(theta * Math.PI / 180);
+      // theta += 1;
+      mesh1.position.x = 500 * Math.cos(theta * Math.PI / 180);
+      mesh1.position.z = 500 * Math.sin(theta * Math.PI / 180);
+
+      // 螺旋のアニメーション
+      mesh1.rotation.y = -theta * Math.PI / 180;
+      mesh1.position.y = top - theta;
+      theta++;
+
+      if(theta > 1790) {
+        theta = 0;
+      }
 
       render();
   }
