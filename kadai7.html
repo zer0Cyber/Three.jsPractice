@@ -54,7 +54,11 @@ a {
   var mesh;
   var mesh1;
 
-  let snow = new Array(1000);
+  let snow = new Array();
+
+  for(let i = 0; i < 1000; i++){
+    snow[i] = i;
+  }
 
 
   var texture;
@@ -129,7 +133,7 @@ a {
     scene.add(mesh1);
 
     // 立体（下）
-    geometry = new THREE.BoxGeometry(20, 20, 20);
+    geometry = new THREE.BoxGeometry(10, 10, 10);
     material = new THREE.MeshLambertMaterial({
       color: 0xffffff,
       //specular: 0xcccccc,
@@ -140,6 +144,8 @@ a {
     // 雪だるま
     for (let i = 0; i < 1000; i++) {
     snow[i] = i;
+
+    // console.log(snow);
 
       snow[i] = new THREE.Mesh(geometry, material);
       let x = Math.random() * 1000 - 500;
@@ -208,14 +214,14 @@ a {
       requestAnimationFrame(animate); //再帰呼出し
       controls.update();			
 
-      // for(let i = 0; i < 1000; i++){
-      //   snow[i] = i;
-      //   snow[i].position.y -= 1;
-      // }
+      for(let i = 0; i < 1000; i++){
+        // snow[i] = i;
+        snow[i].position.y -= 1;
 
-      // if(snow[i] > 1000) {
-      //   y = 1000;
-      // }
+      if(snow[i].position.y <  -500) {
+        snow[i].position.y = 500;
+      }
+      }
 
       render();
   }
