@@ -56,9 +56,9 @@ a {
 
   let snow = new Array();
 
-  for(let i = 0; i < 1000; i++){
-    snow[i] = i;
-  }
+  // for(let i = 0; i < 1000; i++){
+  //   snow[i] = i;
+  // }
 
 
   var texture;
@@ -218,9 +218,9 @@ a {
         // snow[i] = i;
         snow[i].position.y -= 1;
 
-      if(snow[i].position.y <  -500) {
-        snow[i].position.y = 500;
-      }
+        if(snow[i].position.y <  -500) {
+          snow[i].position.y = 500;
+        }
       }
 
       render();
